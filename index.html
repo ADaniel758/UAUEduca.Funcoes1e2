@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Funções de 1º e 2º Grau — Aula Interativa | Prof. Anderson Daniel · UAUEduca</title>
+<meta name="description" content="Aula interativa de funções de 1º e 2º grau: teoria detalhada, laboratórios com coeficientes manipuláveis, aplicações do cotidiano, quiz corrigido e exercícios resolvidos. Por Professor Anderson Daniel — UAUEduca.">
+<meta property="og:title" content="Funções de 1º e 2º Grau — Aula Interativa">
+<meta property="og:description" content="Reta e parábola de verdade: mexa nos coeficientes, veja o gráfico responder e aprenda fazendo. Prof. Anderson Daniel · UAUEduca.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📐</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+/* ============ BASE ============ */
+:root{
+  --paper:#f5f2e8; --card:#fffdf6; --ink:#1c2b4a; --ink2:#4a5878;
+  --line:rgba(28,43,74,.18); --grid:rgba(46,93,150,.10);
+  --lin:#0d7f6e; --lin-bg:#e3f2ee; --quad:#d9531e; --quad-bg:#fdeadd;
+  --sun:#ffd23f; --red:#c8385a; --red-bg:#fbe7ec; --blue:#3568c9; --vio:#8a4fc9;
+  --board:#152641; --chalk:#eef4ff;
+  --disp:"Bricolage Grotesque",sans-serif; --body:"Atkinson Hyperlegible",sans-serif;
+  --hand:"Caveat",cursive; --mathf:Georgia,"Times New Roman",serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body); color:var(--ink); line-height:1.65; font-size:17px;
+  background-color:var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px,transparent 1px),
+    linear-gradient(rgba(46,93,150,.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(46,93,150,.06) 1px,transparent 1px);
+  background-size:26px 26px,26px 26px,130px 130px,130px 130px;
+}
+::selection{background:var(--sun); color:var(--ink)}
+:focus-visible{outline:3px solid var(--quad);outline-offset:2px;border-radius:6px}
+.math{font-family:var(--mathf); font-style:italic; font-size:1.06em; white-space:nowrap}
+h1,h2,h3{font-family:var(--disp); line-height:1.15}
+a{color:var(--quad)}
+canvas.plot{width:100%; display:block; background:#fff; border-radius:10px}
+section{scroll-margin-top:92px}
+.skip{position:absolute;left:-999px;top:0;background:var(--sun);border:2px solid var(--ink);padding:10px 16px;z-index:200;border-radius:0 0 10px 0;font-weight:700;color:var(--ink)}
+.skip:focus{left:0}
+
+/* ============ LOGO (logo.jpg, mesmo diretório do index.html) ============ */
+.logo-img{display:block;object-fit:contain;user-select:none}
+/* fundo branco do JPEG fundido com o papel (menu e cartão claro) */
+.logo-blend{mix-blend-mode:multiply}
+
+/* ============ PROGRESSO + NAV ============ */
+#progress{position:fixed;top:0;left:0;height:4px;width:0;background:linear-gradient(90deg,var(--lin),var(--quad));z-index:99}
+nav{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:2px solid var(--ink);
+  display:flex;align-items:center;gap:16px;padding:8px 22px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.brand .logo-img{height:52px;width:auto;flex:none;transition:transform .2s}
+.brand:hover .logo-img{transform:rotate(-3deg) scale(1.05)}
+.brand-txt b{display:block;font-family:var(--disp);font-weight:800;font-size:.92rem;line-height:1.1}
+.brand-txt small{display:block;font-size:.7rem;color:var(--ink2);font-weight:700;letter-spacing:.04em}
+nav .links{display:flex;gap:4px;overflow-x:auto;margin-left:auto;max-width:100%}
+nav .links a{color:var(--ink);text-decoration:none;font-size:.86rem;font-weight:700;padding:6px 10px;border-radius:8px;white-space:nowrap;transition:.15s}
+nav .links a:hover{background:var(--sun);transform:translateY(-2px)}
+nav .links a.active{background:var(--ink);color:#fff}
+
+/* ============ HERO ============ */
+.hero{max-width:1180px;margin:0 auto;padding:60px 24px 52px;position:relative;
+  display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center}
+.kicker{font-family:var(--disp);font-weight:700;font-size:.8rem;letter-spacing:.22em;color:var(--quad);text-transform:uppercase}
+.hero h1{font-size:clamp(2.3rem,5vw,3.9rem);font-weight:800;margin:14px 0 16px;letter-spacing:-.01em}
+.hero h1 .g1{color:var(--lin)} .hero h1 .g2{color:var(--quad)}
+.lede{font-size:1.08rem;color:var(--ink2);max-width:34rem}
+.teacher-line{font-family:var(--hand);font-size:1.45rem;margin-top:14px;transform:rotate(-1deg)}
+.teacher-line strong{color:var(--quad)}
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 26px}
+.meta span{background:var(--card);border:2px solid var(--ink);border-radius:999px;padding:6px 14px;font-size:.84rem;font-weight:700;box-shadow:3px 3px 0 rgba(28,43,74,.12);transition:.15s}
+.meta span:hover{transform:translateY(-3px) rotate(-1deg);box-shadow:4px 5px 0 rgba(28,43,74,.18)}
+.cta{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-block;font-family:var(--disp);font-weight:700;font-size:.95rem;text-decoration:none;color:var(--ink);
+  background:var(--sun);border:2px solid var(--ink);border-radius:11px;padding:12px 22px;cursor:pointer;
+  box-shadow:4px 4px 0 var(--ink);transition:.15s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.btn.ghost{background:var(--card)}
+.hero-card{position:relative}
+.panel{background:var(--card);border:2px solid var(--ink);border-radius:16px;box-shadow:7px 7px 0 rgba(28,43,74,.12);overflow:hidden}
+.panel .p-head{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:2px solid var(--ink);background:#fdf9ea;flex-wrap:wrap}
+.dots i{display:inline-block;width:10px;height:10px;border-radius:50%;border:1.5px solid var(--ink);margin-right:4px}
+.dots i:nth-child(1){background:var(--quad)}.dots i:nth-child(2){background:var(--sun)}.dots i:nth-child(3){background:var(--lin)}
+.p-head b{font-family:var(--disp);font-size:.92rem}
+.p-head .modes{margin-left:auto;display:flex;gap:6px}
+.modes button{font-family:var(--body);font-weight:700;font-size:.75rem;border:2px solid var(--ink);background:#fff;border-radius:8px;padding:4px 10px;cursor:pointer;transition:.15s}
+.modes button:hover{transform:translateY(-2px)}
+.modes button.on{background:var(--ink);color:#fff}
+.p-body{padding:14px}
+.sticker{position:absolute;bottom:-22px;left:-14px;background:var(--sun);border:2px solid var(--ink);border-radius:10px;
+  padding:8px 16px;font-family:var(--hand);font-size:1.25rem;font-weight:700;transform:rotate(-3deg);box-shadow:4px 4px 0 rgba(28,43,74,.2);max-width:270px}
+.doodle{position:absolute;font-family:var(--hand);color:rgba(28,43,74,.28);font-size:1.6rem;pointer-events:none;user-select:none}
+.d1{top:20px;right:6%;transform:rotate(8deg)} .d2{bottom:30px;left:44%;transform:rotate(-6deg)} .d3{top:44%;left:2%;transform:rotate(-10deg)}
+#heroModeLbl{font-family:var(--hand);font-size:1.15rem;color:var(--quad);margin-left:6px}
+
+/* ============ TICKER + FAIXAS DE CITAÇÃO ============ */
+.ticker{border-block:2px solid var(--ink);background:var(--board);overflow:hidden;padding:10px 0}
+.ticker-track{display:flex;gap:44px;width:max-content;animation:scroll 30s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker span{color:var(--chalk);font-family:var(--mathf);font-style:italic;font-size:1rem;white-space:nowrap}
+.ticker em{color:var(--sun);font-style:normal;font-family:var(--hand);font-size:1.2rem}
+@keyframes scroll{to{transform:translateX(-50%)}}
+.quote-band{border-block:2px solid var(--ink);background:var(--sun);padding:26px 24px;text-align:center}
+.quote-rot{transition:opacity .35s ease;max-width:820px;margin:0 auto;min-height:4.6em;display:flex;flex-direction:column;justify-content:center;gap:4px}
+.quote-rot.fade{opacity:0}
+.quote-rot blockquote{font-family:var(--hand);font-size:clamp(1.35rem,3vw,2.05rem);font-weight:700;line-height:1.25}
+.quote-rot cite{font-style:normal;font-weight:700;font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;color:#5c4a00}
+
+/* ============ FAIXA DO PROFESSOR ============ */
+.prof{max-width:1180px;margin:34px auto 0;padding:0 24px}
+.prof-card{display:flex;align-items:center;gap:26px;flex-wrap:wrap;padding:22px 28px}
+.prof-card .logo-img{height:120px;width:auto;flex:none}
+.prof-card .who{flex:1;min-width:240px}
+.prof-card h3{font-size:1.5rem;margin:4px 0 6px}
+.prof-card p{margin:0;color:var(--ink2);font-size:.95rem;max-width:34rem}
+.prof-card .quote-rot{min-height:4.2em;flex:1;min-width:260px;text-align:left}
+.prof-card .quote-rot blockquote{font-size:1.35rem}
+
+/* ============ SEÇÕES ============ */
+.section{max-width:1180px;margin:0 auto;padding:76px 24px 20px}
+.sec-head{position:relative;margin-bottom:34px}
+.sec-num{position:absolute;top:-38px;left:-8px;font-family:var(--disp);font-weight:800;font-size:6rem;color:rgba(28,43,74,.07);z-index:-1;user-select:none}
+.sec-head h2{font-size:clamp(1.7rem,3.4vw,2.5rem);font-weight:800}
+.sec-head .sub{color:var(--ink2);max-width:46rem;margin-top:8px}
+.band-lin .sec-head h2{border-left:8px solid var(--lin);padding-left:16px}
+.band-quad .sec-head h2{border-left:8px solid var(--quad);padding-left:16px}
+.duo{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:start;margin:26px 0}
+.duo.rev{grid-template-columns:.95fr 1.05fr}
+h3{font-size:1.35rem;margin:30px 0 12px}
+p{margin-bottom:14px}
+strong{color:var(--ink)}
+
+/* cards e caixas */
+.card{background:var(--card);border:2px solid var(--ink);border-radius:14px;padding:22px;box-shadow:6px 6px 0 rgba(28,43,74,.10)}
+.callout{border:2px solid var(--ink);border-left-width:8px;border-radius:12px;padding:16px 20px;margin:20px 0;background:var(--card)}
+.callout .co-t{font-family:var(--disp);font-weight:800;font-size:.95rem;margin-bottom:6px}
+.co-sun{border-left-color:var(--sun);background:#fffbe9}
+.co-teal{border-left-color:var(--lin);background:var(--lin-bg)}
+.co-quad{border-left-color:var(--quad);background:var(--quad-bg)}
+.co-red{border-left-color:var(--red);background:var(--red-bg)}
+.co-blue{border-left-color:var(--blue);background:#e9effb}
+.def{font-size:1.06rem}
+.mark{background:linear-gradient(transparent 52%,var(--sun) 52% 94%,transparent 94%);padding:0 4px}
+.note-hand{font-family:var(--hand);font-size:1.35rem;color:var(--ink);transform:rotate(-1.5deg);display:inline-block}
+
+/* pílulas */
+.pills{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.pill{border:2px solid var(--ink);border-radius:999px;padding:5px 14px;font-size:.85rem;font-weight:700;background:var(--card);transition:.15s}
+.pill:hover{transform:translateY(-2px)}
+.pill.ok{background:#dff3e4;border-color:#1e7a46;color:#14532d}
+.pill.bad{background:var(--red-bg);border-color:var(--red);color:#8f1d3d}
+.pill.warn{background:#fff3cd;border-color:#b98a00;color:#6b5300}
+.pill.teal{background:var(--lin-bg);color:#0a5f52}
+.pill.org{background:var(--quad-bg);color:#a33c12}
+
+/* tabelas */
+.tb-wrap{overflow-x:auto}
+table.tb{width:100%;border-collapse:collapse;margin:16px 0;background:var(--card);border:2px solid var(--ink);border-radius:12px;overflow:hidden}
+.tb th,.tb td{border:1.5px solid var(--line);padding:10px 12px;font-size:.92rem;text-align:left;vertical-align:top}
+.tb th{background:var(--ink);color:#fff;font-family:var(--disp);font-weight:700}
+.tb tr:nth-child(even) td{background:#fbf7ea}
+.tb td.c1{background:var(--lin-bg)!important}
+.tb td.c2{background:var(--quad-bg)!important}
+
+/* anatomia */
+.anat{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;margin:22px 0}
+.anat .card{padding:18px;transition:.18s}
+.anat .card:hover{transform:translateY(-5px) rotate(-.5deg);box-shadow:8px 10px 0 rgba(28,43,74,.14)}
+.anat h4{font-family:var(--disp);font-size:1.05rem;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.anat p{font-size:.9rem;color:var(--ink2);margin:0}
+
+/* controles */
+.ctrl{display:flex;align-items:center;gap:12px;margin:12px 0}
+.coef{width:36px;height:36px;flex:none;display:grid;place-items:center;border-radius:10px;color:#fff;
+  font-family:var(--mathf);font-style:italic;font-size:1.15rem;border:2px solid var(--ink)}
+.coef.ka{background:var(--lin)} .coef.kb{background:var(--blue)}
+.coef.k2a{background:var(--quad)} .coef.k2b{background:var(--blue)} .coef.k2c{background:var(--vio)}
+input[type=range]{flex:1;height:26px;cursor:pointer}
+.r-lin input{accent-color:var(--lin)} .r-quad input{accent-color:var(--quad)}
+.ctrl output{min-width:56px;text-align:center;font-weight:700;border:2px solid var(--ink);border-radius:8px;padding:3px 6px;background:#fff;font-variant-numeric:tabular-nums}
+.k-a{color:var(--lin);font-weight:700} .k-b{color:var(--blue);font-weight:700}
+.k2-a{color:var(--quad);font-weight:700} .k2-b{color:var(--blue);font-weight:700} .k2-c{color:var(--vio);font-weight:700}
+.eqbox{font-family:var(--mathf);font-style:italic;font-size:1.35rem;background:#fff;border:2px dashed var(--ink);border-radius:10px;padding:10px 16px;margin:10px 0;display:inline-block}
+.lab{margin:30px 0}
+.lab .p-body{display:grid;grid-template-columns:300px 1fr;gap:20px;align-items:start}
+.lab .ctrls{border-right:2px dashed var(--line);padding-right:18px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.8rem;margin-top:8px;color:var(--ink2)}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;border:1.5px solid var(--ink);margin-right:5px;vertical-align:-1px}
+.presets{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.presets button{font-size:.78rem;font-family:var(--mathf);font-style:italic;border:2px solid var(--ink);background:#fff;border-radius:8px;padding:4px 10px;cursor:pointer;transition:.15s}
+.presets button:hover{background:var(--sun);transform:translateY(-2px)}
+.readline{font-size:.95rem;margin:8px 0}
+.tip-use{font-size:.85rem;color:var(--ink2);background:#fdf6dc;border:1.5px dashed var(--ink);border-radius:8px;padding:8px 12px;margin-bottom:10px}
+
+/* fita do táxi */
+.tape{display:flex;height:52px;border:2px solid var(--ink);border-radius:10px;overflow:hidden;background:#fff;margin:14px 0}
+.tape .fixed{flex:none;width:130px;background:repeating-linear-gradient(45deg,#ffe9a8 0 8px,#fff3cd 8px 16px);display:grid;place-items:center;font-weight:700;font-size:.8rem;border-right:2px solid var(--ink)}
+.tape .kmseg{background:var(--lin-bg);background-image:repeating-linear-gradient(90deg,rgba(13,127,110,.3) 0 2px,transparent 2px);display:grid;place-items:center;font-weight:700;color:#0a5f52;min-width:0;overflow:hidden;white-space:nowrap;transition:flex-grow .2s}
+.bignum{font-family:var(--disp);font-weight:800;font-size:2.6rem;color:var(--lin)}
+
+/* máquina */
+.machine svg{width:100%;height:auto;display:block}
+.mbox{fill:var(--sun);stroke:var(--ink);stroke-width:2.5}
+.mtxt{font-family:var(--mathf);font-style:italic;font-size:22px;font-weight:bold}
+.mlab{font-family:var(--body);font-size:13px;font-weight:bold;fill:var(--ink)}
+.mpath{fill:none;stroke:var(--ink);stroke-width:2;stroke-dasharray:6 7;animation:dash 1.1s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-13}}
+.outv{animation:pulse 2.4s ease-in-out infinite}
+.outv.o2{animation-delay:.4s}.outv.o3{animation-delay:.8s}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+/* quiz */
+.qcard{background:var(--card);border:2px solid var(--ink);border-radius:14px;padding:22px;margin:18px 0;box-shadow:5px 5px 0 rgba(28,43,74,.1)}
+.qcard .qn{font-family:var(--disp);font-weight:800;font-size:.8rem;color:var(--quad);letter-spacing:.1em}
+.qcard h4{font-size:1.08rem;margin:6px 0 14px;font-family:var(--body)}
+.opts{display:grid;gap:8px}
+.opt{display:flex;gap:12px;align-items:center;text-align:left;font-family:var(--body);font-size:.95rem;font-weight:700;
+  border:2px solid var(--ink);background:#fff;border-radius:10px;padding:10px 14px;cursor:pointer;transition:.15s}
+.opt:hover:not(:disabled){transform:translateX(4px);background:#fffbe9}
+.opt .lt{flex:none;width:28px;height:28px;display:grid;place-items:center;border:2px solid var(--ink);border-radius:8px;background:var(--paper);font-size:.8rem}
+.opt.correct{background:#dff3e4;border-color:#1e7a46}
+.opt.wrong{background:var(--red-bg);border-color:var(--red)}
+.opt:disabled{cursor:default;opacity:.92}
+.qexp{margin-top:14px;border-left:6px solid var(--sun);background:#fffbe9;border-radius:8px;padding:12px 16px;font-size:.92rem;display:none}
+.qexp.show{display:block;animation:pop .3s ease}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.quiz-score{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.qbar{flex:1;min-width:160px;height:12px;border:2px solid var(--ink);border-radius:99px;background:#fff;overflow:hidden}
+.qbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--lin),var(--quad));transition:width .4s}
+#quizFinal{display:none;margin-top:24px}
+
+/* exercícios */
+details.ex{background:var(--card);border:2px solid var(--ink);border-radius:12px;margin:12px 0;overflow:hidden;transition:.15s}
+details.ex:hover{transform:translateX(4px)}
+details.ex summary{cursor:pointer;list-style:none;display:flex;gap:12px;align-items:center;padding:14px 18px;font-weight:700}
+details.ex summary::-webkit-details-marker{display:none}
+details.ex summary .n{flex:none;width:30px;height:30px;display:grid;place-items:center;background:var(--quad);color:#fff;border:2px solid var(--ink);border-radius:8px;font-size:.85rem}
+details.ex:nth-of-type(odd) summary .n{background:var(--lin)}
+details.ex summary::after{content:"+";margin-left:auto;font-family:var(--disp);font-size:1.4rem;transition:.2s}
+details.ex[open] summary::after{transform:rotate(45deg)}
+details.ex .sol{border-top:2px dashed var(--line);padding:14px 20px;font-size:.94rem;background:#fbf8ee}
+details.ex .sol b{color:var(--quad)}
+
+/* quadro-resumo */
+.board{background:var(--board);border:3px solid var(--ink);border-radius:18px;padding:36px;color:var(--chalk);
+  background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+  background-size:26px 26px}
+.board h2{color:#fff}
+.board .fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin:26px 0}
+.fcard{border:2px dashed rgba(238,244,255,.45);border-radius:12px;padding:16px 18px;transition:.18s;background:rgba(255,255,255,.04)}
+.fcard:hover{transform:translateY(-4px) rotate(-.6deg);border-color:var(--sun);background:rgba(255,255,255,.08)}
+.fcard h4{font-family:var(--hand);font-size:1.5rem;color:var(--sun);margin-bottom:6px}
+.fcard .math{color:var(--chalk);font-size:1.2rem}
+.gloss{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.gloss span{border:1.5px solid rgba(238,244,255,.5);border-radius:999px;padding:5px 14px;font-size:.83rem;transition:.15s;cursor:default}
+.gloss span:hover{background:var(--sun);color:var(--ink);border-color:var(--sun);transform:translateY(-2px)}
+.board ul{margin:10px 0 0 20px}
+.board li{margin-bottom:6px}
+.board .chalk-note{font-family:var(--hand);font-size:1.5rem;color:var(--sun);transform:rotate(-1deg);display:inline-block;margin-top:18px}
+
+/* FAB voltar ao topo */
+#fab{position:fixed;right:22px;bottom:22px;width:52px;height:52px;border-radius:50%;border:2px solid var(--ink);
+  background:var(--sun);font-size:1.3rem;font-weight:800;cursor:pointer;box-shadow:4px 4px 0 var(--ink);
+  opacity:0;pointer-events:none;transform:translateY(14px);transition:.25s;z-index:60}
+#fab.show{opacity:1;pointer-events:auto;transform:none}
+#fab:hover{transform:translateY(-4px)}
+
+footer{background:var(--ink);color:#dfe6f5;text-align:center;padding:40px 20px;margin-top:80px;border-top:4px solid var(--sun)}
+/* no rodapé escuro, o JPEG pousa sobre um cartão branco para preservar as cores */
+.foot-logo-card{display:inline-block;background:#fff;border:3px solid var(--sun);border-radius:18px;padding:14px 22px;
+  box-shadow:6px 6px 0 rgba(0,0,0,.35);margin-bottom:14px;transition:.2s}
+.foot-logo-card:hover{transform:rotate(-1.5deg) scale(1.03)}
+.foot-logo-card .logo-img{height:170px;width:auto;margin:0 auto}
+footer .hand{font-family:var(--hand);font-size:1.6rem;color:var(--sun)}
+footer .prof-name{font-family:var(--disp);font-weight:800;color:#fff;font-size:1.05rem;margin-top:4px}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ============ RESPONSIVO ============ */
+@media(max-width:960px){
+  .hero,.duo,.duo.rev{grid-template-columns:1fr;gap:28px}
+  .lab .p-body{grid-template-columns:1fr}
+  .lab .ctrls{border-right:none;border-bottom:2px dashed var(--line);padding:0 0 16px}
+  .sticker{left:8px}
+  .prof-card .quote-rot{text-align:center}
+  .prof-card{justify-content:center;text-align:center}
+}
+@media(max-width:640px){
+  .tb th,.tb td{font-size:.78rem;padding:7px 8px}
+  body{font-size:16px}
+  .brand .logo-img{height:42px}
+  .brand-txt small{display:none}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+/* ============ IMPRESSÃO ============ */
+@media print{
+  nav,#progress,.ticker,.quote-band,.lab,.cta,.modes,#fab,.prof,.hero-card,.doodle,#fab{display:none!important}
+  body{background:#fff}
+  .reveal{opacity:1;transform:none}
+  details.ex{break-inside:avoid;border-color:#000}
+  .board{background:#fff;color:#000;border-color:#000}
+  .board .math,.board h2,.fcard .math{color:#000}
+  .foot-logo-card{border-color:#000;box-shadow:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#ideia">Pular para o conteúdo</a>
+
+<div id="progress"></div>
+
+<nav aria-label="Navegação da aula">
+  <a class="brand" href="#" aria-label="UAUEduca — início">
+    <!-- LOGO: arquivo logo.jpg no mesmo diretório deste index.html -->
+    <img class="logo-img logo-blend" src="logo.jpg" alt="Logo UAUEduca">
+    <span class="brand-txt"><b>UAUEduca · Educação Multidisciplinar</b><small>Prof. Anderson Daniel</small></span>
+  </a>
+  <div class="links">
+    <a href="#ideia">A ideia</a>
+    <a href="#g1">1º grau</a>
+    <a href="#g2">2º grau</a>
+    <a href="#duelo">Cara a cara</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#exercicios">Exercícios</a>
+    <a href="#resumo">Resumo</a>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <span class="doodle d1">Δ = b² − 4ac</span>
+  <span class="doodle d2">y = ax + b</span>
+  <span class="doodle d3">x²</span>
+  <div>
+    <span class="kicker">Matemática · Álgebra · Aula completa e interativa</span>
+    <h1>Funções de <span class="g1">1º grau</span> e <span class="g2">2º grau</span> — para aprender de verdade.</h1>
+    <p class="lede">Da máquina de funções ao lançamento de uma bola: entenda o papel de cada coeficiente, veja o gráfico responder em tempo real aos seus comandos e pratique com exercícios explicados passo a passo.</p>
+    <p class="teacher-line">✍️ Uma aula de <strong>Professor Anderson Daniel</strong> · UAUEduca</p>
+    <div class="meta">
+      <span>🎛️ 6 laboratórios interativos</span>
+      <span>🌎 Aplicações do cotidiano</span>
+      <span>✏️ 9 exercícios resolvidos</span>
+      <span>🎯 Quiz de 9 questões com correção</span>
+    </div>
+    <div class="cta">
+      <a class="btn" href="#ideia">Começar a aula ↓</a>
+      <a class="btn ghost" href="#lab1">Ir direto ao laboratório</a>
+    </div>
+  </div>
+  <div class="hero-card">
+    <div class="panel">
+      <div class="p-head">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <b>O gráfico se transformando</b>
+        <span id="heroModeLbl">modo: mistura</span>
+        <span class="modes">
+          <button id="hmLin">1º grau</button>
+          <button id="hmQuad">2º grau</button>
+          <button id="hmMix" class="on">misturar</button>
+        </span>
+      </div>
+      <div class="p-body"><canvas id="heroCv" class="plot" style="height:330px"></canvas></div>
+    </div>
+    <div class="sticker">Quando a reta “entorta” e vira curva… o x² chegou! ✏️</div>
+  </div>
+</header>
+
+<!-- ticker de fórmulas -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>f(x) = ax + b</span><em>✦</em><span>Δ = b² − 4ac</span><em>✦</em><span>x = (−b ± √Δ) / 2a</span><em>✦</em>
+    <span>xv = −b / 2a</span><em>✦</em><span>yv = −Δ / 4a</span><em>✦</em><span>raiz ⟺ f(x) = 0</span><em>✦</em>
+    <span>a &gt; 0: sorriso 🙂</span><em>✦</em><span>a &lt; 0: carinha triste ☹</span><em>✦</em>
+    <span>1º grau: reta</span><em>✦</em><span>2º grau: parábola</span><em>✦</em>
+    <span>f(x) = ax + b</span><em>✦</em><span>Δ = b² − 4ac</span><em>✦</em><span>x = (−b ± √Δ) / 2a</span><em>✦</em>
+    <span>xv = −b / 2a</span><em>✦</em><span>yv = −Δ / 4a</span><em>✦</em><span>raiz ⟺ f(x) = 0</span><em>✦</em>
+    <span>a &gt; 0: sorriso 🙂</span><em>✦</em><span>a &lt; 0: carinha triste ☹</span><em>✦</em>
+    <span>1º grau: reta</span><em>✦</em><span>2º grau: parábola</span><em>✦</em>
+  </div>
+</div>
+
+<!-- ================= FAIXA DO PROFESSOR ================= -->
+<div class="prof">
+  <div class="card prof-card reveal">
+    <img class="logo-img logo-blend" src="logo.jpg" alt="Logo UAUEduca">
+    <div class="who">
+      <span class="kicker">UAUEduca · Educação Multidisciplinar apresenta</span>
+      <h3>Professor Anderson Daniel</h3>
+      <p>Matemática com mão na massa: cada gráfico desta aula é um convite para experimentar, errar, prever e descobrir. Aprender fazendo — é assim que a gente ensina aqui no UAUEduca.</p>
+    </div>
+    <div class="quote-rot" data-offset="0" aria-live="polite">
+      <blockquote></blockquote><cite></cite>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 01 · A IDEIA ================= -->
+<section class="section" id="ideia">
+  <div class="sec-head reveal">
+    <span class="sec-num">01</span>
+    <span class="kicker">A ideia central</span>
+    <h2>O que é uma função?</h2>
+    <p class="sub">Antes de qualquer fórmula, função é uma ideia simples: <strong>uma quantidade que depende de outra</strong>.</p>
+  </div>
+
+  <div class="duo">
+    <div class="reveal">
+      <p>Pense no seu dia: o valor da corrida de aplicativo <em>depende</em> dos quilômetros rodados; a altura de uma bola lançada para cima <em>depende</em> do tempo; a área de um piso quadrado <em>depende</em> do tamanho do lado. Sempre que uma grandeza é <span class="mark">determinada por outra</span>, a Matemática chama isso de <strong>função</strong>.</p>
+      <div class="callout co-sun def">
+        <div class="co-t">📖 Definição (guarde esta!)</div>
+        Uma <strong>função</strong> é uma regra que associa a <strong>cada</strong> valor de entrada <span class="math">x</span> <strong>um único</strong> valor de saída <span class="math">y</span>.
+      </div>
+      <p>Escrevemos <span class="math">y = f(x)</span> e lemos “<em>f de x</em>”. O <span class="math">x</span> é a <strong>variável independente</strong> (a entrada, quem você escolhe); o <span class="math">y</span> é a <strong>variável dependente</strong> (a saída, quem responde). O conjunto de entradas possíveis é o <strong>domínio</strong>; o de saídas, a <strong>imagem</strong>.</p>
+      <p>Uma mesma função pode vestir <span class="mark">três roupas diferentes</span> — e entender isso é metade do aprendizado:</p>
+      <div class="pills">
+        <span class="pill teal">📋 Tabela de valores</span>
+        <span class="pill org">🧮 Lei algébrica (a fórmula)</span>
+        <span class="pill">📈 Gráfico no plano</span>
+      </div>
+    </div>
+
+    <div class="card machine reveal">
+      <svg viewBox="0 0 560 210" role="img" aria-label="Máquina de funções: entradas 1, 2 e 3 produzem saídas 3, 5 e 7">
+        <path class="mpath" d="M78,45 C160,45 165,95 232,100"/>
+        <path class="mpath" d="M78,105 L232,103" style="animation-delay:.2s"/>
+        <path class="mpath" d="M78,165 C160,165 165,110 232,105" style="animation-delay:.4s"/>
+        <path class="mpath" d="M328,98 C400,92 405,45 468,45" style="animation-delay:.1s"/>
+        <path class="mpath" d="M328,102 L468,103" style="animation-delay:.3s"/>
+        <path class="mpath" d="M328,106 C400,112 405,165 468,165" style="animation-delay:.5s"/>
+        <rect class="mbox" x="232" y="62" width="96" height="80" rx="14"/>
+        <text class="mtxt" x="280" y="97" text-anchor="middle">× 2</text>
+        <text class="mtxt" x="280" y="126" text-anchor="middle">+ 1</text>
+        <text class="mlab" x="20" y="50">x = 1</text>
+        <text class="mlab" x="20" y="110">x = 2</text>
+        <text class="mlab" x="20" y="170">x = 3</text>
+        <text class="mlab outv" x="478" y="50" fill="#0d7f6e">y = 3</text>
+        <text class="mlab outv o2" x="478" y="110" fill="#0d7f6e">y = 5</text>
+        <text class="mlab outv o3" x="478" y="170" fill="#0d7f6e">y = 7</text>
+      </svg>
+      <p style="font-size:.9rem;color:var(--ink2);margin:8px 0 0">A regra aqui é <span class="math">f(x) = 2x + 1</span>: cada entrada é dobrada e somada de 1. Cada <span class="math">x</span> entrega <strong>exatamente uma</strong> saída.</p>
+    </div>
+  </div>
+
+  <div class="duo rev">
+    <figure class="card reveal">
+      <div class="tb-wrap">
+      <table class="tb" style="margin:0">
+        <tr><th><span class="math">x</span> (entrada)</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+        <tr><th><span class="math">f(x) = 2x+1</span></th><td>1</td><td>3</td><td>5</td><td>7</td><td>9</td></tr>
+        <tr><th>Ponto no gráfico</th><td>(0,1)</td><td>(1,3)</td><td>(2,5)</td><td>(3,7)</td><td>(4,9)</td></tr>
+      </table>
+      </div>
+      <figcaption class="note-hand" style="margin-top:12px">O gráfico é só a lista de pares (x, f(x)) desenhada no plano! Repare: cada passo em x avança 2 em y.</figcaption>
+    </figure>
+    <div class="reveal">
+      <h3>É função ou não é?</h3>
+      <p>A regra de ouro: <span class="mark">cada entrada pode ter UMA ÚNICA saída</span>. Se um mesmo <span class="math">x</span> apontar para dois valores de <span class="math">y</span>, não é função. No gráfico, isso vira o famoso <strong>teste da reta vertical</strong>: se alguma reta vertical cortar o desenho em dois pontos, aquilo não é função.</p>
+      <div class="callout co-blue">
+        <div class="co-t">🧠 Exemplo para nunca esquecer</div>
+        “Idade → altura” é função? Em um instante sim: em cada data, você tem uma única altura. Já “altura → idade” não é: aos 1,60 m você pode ter ficado aos 14 <em>e</em> aos 15 anos. Uma entrada, duas saídas → não é função.
+      </div>
+      <p class="note-hand">Resumindo: função é previsível — mesma entrada, sempre a mesma saída. ✅</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 02 · 1º GRAU ================= -->
+<section class="section band-lin" id="g1">
+  <div class="sec-head reveal">
+    <span class="sec-num">02</span>
+    <span class="kicker" style="color:var(--lin)">Reta na certa</span>
+    <h2>Função do 1º grau: <span class="math">f(x) = ax + b</span></h2>
+    <p class="sub">Toda vez que algo cresce (ou diminui) <strong>sempre na mesma proporção</strong>, existe uma reta escondida ali.</p>
+  </div>
+
+  <div class="reveal">
+    <p>Uma função do <strong>1º grau</strong> (ou <strong>afim</strong>) tem a forma <span class="math">f(x) = ax + b</span>, com <span class="math">a ≠ 0</span>. O expoente do <span class="math">x</span> é 1 — o maior que aparece. Casos particulares: se <span class="math">b = 0</span>, chamamos de <strong>função linear</strong> (<span class="math">f(x) = ax</span>, reta passando pela origem); se <span class="math">a = 0</span>, vira função <strong>constante</strong> (uma reta horizontal — e deixa de ser de 1º grau!).</p>
+  </div>
+
+  <div class="anat reveal">
+    <div class="card">
+      <h4><span class="coef ka">a</span> Coeficiente angular</h4>
+      <p>É a <strong>inclinação</strong>: a taxa de variação. Cada vez que <span class="math">x</span> aumenta 1 unidade, <span class="math">y</span> muda <span class="math">a</span> unidades. Entre dois pontos: <span class="math">a = Δy/Δx</span>. Se <span class="math">a &gt; 0</span> a função cresce; se <span class="math">a &lt; 0</span>, decresce. Quanto maior <span class="math">|a|</span>, mais “em pé” a reta.</p>
+    </div>
+    <div class="card">
+      <h4><span class="coef kb">b</span> Coeficiente linear</h4>
+      <p>É o <strong>valor inicial</strong>: o ponto onde a reta corta o eixo vertical, sempre em <span class="math">(0, b)</span>. Mudar <span class="math">b</span> <strong>desliza</strong> a reta para cima ou para baixo sem girá-la — a inclinação continua a mesma.</p>
+    </div>
+    <div class="card">
+      <h4><span style="font-size:1.3rem">🎯</span> Raiz (zero da função)</h4>
+      <p>Onde a reta cruza o eixo <span class="math">x</span>, ou seja, onde <span class="math">f(x) = 0</span>: <span class="math">ax + b = 0 ⟹ x₀ = −b/a</span>. Toda função de 1º grau tem <strong>exatamente uma</strong> raiz.</p>
+    </div>
+  </div>
+
+  <div class="callout co-teal reveal">
+    <div class="co-t">🌎 Exemplo real: graus Celsius → Fahrenheit</div>
+    <p style="margin:0"><span class="math">F(C) = 1,8·C + 32</span>. Aqui <span class="math">a = 1,8</span>: cada grau Celsius a mais vira 1,8 °F a mais (taxa constante → reta). E <span class="math">b = 32</span>: por isso 0 °C = 32 °F. Raiz: <span class="math">C = −32/1,8 ≈ −17,8 °C</span>, a temperatura em que Fahrenheit marca zero.</p>
+  </div>
+
+  <!-- LAB 1 -->
+  <div class="lab reveal" id="lab1">
+    <div class="panel r-lin">
+      <div class="p-head">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <b>Laboratório 1 — Mexa nos coeficientes da reta</b>
+      </div>
+      <div class="p-body">
+        <div class="ctrls">
+          <div class="tip-use">🎛️ Arraste os controles e <em>preveja</em> o que vai acontecer antes de olhar o gráfico.</div>
+          <div class="ctrl"><span class="coef ka">a</span><input type="range" id="l1a" min="-5" max="5" step="0.5" value="2" aria-label="coeficiente a"><output id="l1av">2</output></div>
+          <div class="ctrl"><span class="coef kb">b</span><input type="range" id="l1b" min="-10" max="10" step="0.5" value="1" aria-label="coeficiente b"><output id="l1bv">1</output></div>
+          <div class="eqbox" id="l1eq"></div>
+          <div class="pills" style="margin:6px 0">
+            <span class="pill" id="l1type"></span>
+          </div>
+          <p class="readline" id="l1root"></p>
+          <div class="presets">
+            <button data-a="1" data-b="0">f(x) = x</button>
+            <button data-a="-2" data-b="3">f(x) = −2x+3</button>
+            <button data-a="0.5" data-b="-1">f(x) = 0,5x−1</button>
+            <button data-a="0" data-b="4">f(x) = 4 🤔</button>
+          </div>
+        </div>
+        <div>
+          <canvas id="cv1" class="plot" style="height:320px"></canvas>
+          <div class="legend">
+            <span><i style="background:var(--lin)"></i>reta f(x)</span>
+            <span><i style="background:var(--blue)"></i>corte no eixo y (0, b)</span>
+            <span><i style="background:var(--red)"></i>raiz (f(x)=0)</span>
+          </div>
+          <div class="tb-wrap">
+          <table class="tb" style="max-width:420px">
+            <tr><th>x</th><td>−2</td><td>−1</td><td>0</td><td>1</td><td>2</td></tr>
+            <tr><th>f(x)</th><td id="t1y0"></td><td id="t1y1"></td><td id="t1y2"></td><td id="t1y3"></td><td id="t1y4"></td></tr>
+          </table>
+          </div>
+          <p style="font-size:.88rem;color:var(--ink2)">Observe a tabela: os valores de <span class="math">f(x)</span> sobem (ou descem) sempre <strong>de <span id="t1step" class="k-a">2</span> em <span id="t1step2" class="k-a">2</span></strong> — essa é a assinatura do <span class="k-a">a</span>, o ritmo constante da reta.</p>
+          <p class="note-hand">Prever antes de arrastar: é assim que o cérebro aprende! 🧠</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout co-red reveal">
+    <div class="co-t">🚫 Erros comuns — não caia nessas!</div>
+    <ul style="margin-left:18px;font-size:.95rem">
+      <li><span class="math">f(x)</span> <strong>não</strong> é “f vezes x”. É o nome da saída da máquina.</li>
+      <li>Quem diz se a reta sobe ou desce é o <strong>a</strong>, não o b.</li>
+      <li><span class="math">a = 0</span> não é função de 1º grau: é uma constante (reta horizontal).</li>
+    </ul>
+  </div>
+
+  <h3 class="reveal">Estudo do sinal</h3>
+  <p class="reveal">A raiz divide a reta em duas metades. Para <span class="math">f(x) = 2x − 4</span> (raiz <span class="math">x = 2</span>): à direita da raiz, <span class="math">f(x) &gt; 0</span>; à esquerda, <span class="math">f(x) &lt; 0</span> — e se <span class="math">a &lt; 0</span>, tudo se inverte. No laboratório acima, arraste <span class="math">b</span> e veja a raiz deslizando pelo eixo.</p>
+
+  <!-- COTIDIANO 1º GRAU -->
+  <h3 class="reveal" id="cotidiano1">🌎 O 1º grau no seu bolso</h3>
+  <div class="duo">
+    <div class="panel reveal">
+      <div class="p-head"><span class="dots"><i></i><i></i><i></i></span><b>Corrida de táxi 🚕</b></div>
+      <div class="p-body" style="grid-template-columns:1fr">
+        <p style="font-size:.95rem">Bandeirada fixa de <strong>R$ 5,00</strong> + <strong>R$ 2,50 por km</strong>. Modelo: <span class="math">C(km) = 2,50·km + 5,00</span>. O <span class="k-b">b</span> é o valor que você paga antes mesmo de andar; o <span class="k-a">a</span> é o ritmo do taxímetro.</p>
+        <div class="ctrl"><span class="coef kb">km</span><input type="range" id="tkm" min="0" max="40" step="1" value="12" style="accent-color:var(--quad)" aria-label="quilômetros"><output id="tkmv">12</output></div>
+        <div class="tape">
+          <div class="fixed">R$ 5,00<br>fixos</div>
+          <div class="kmseg" id="tsegKm" style="flex-grow:12"></div>
+        </div>
+        <p class="readline" id="tcalc" style="font-family:var(--mathf);font-style:italic;font-size:1.1rem"></p>
+        <p class="bignum" id="tcost"></p>
+      </div>
+    </div>
+    <div class="panel reveal">
+      <div class="p-head"><span class="dots"><i></i><i></i><i></i></span><b>Batalha de planos de celular 📱</b></div>
+      <div class="p-body" style="grid-template-columns:1fr">
+        <p style="font-size:.95rem"><span class="k-a">Plano A</span>: R$ 30 fixos + R$ 0,50/min &nbsp;×&nbsp; <span class="k2-a">Plano B</span>: R$ 10 fixos + R$ 0,90/min. Duas retas <strong>sempre se cruzam</strong> — e o cruzamento é o ponto de decisão!</p>
+        <div class="ctrl"><span class="coef" style="background:var(--blue);color:#fff">min</span><input type="range" id="pm" min="0" max="120" step="1" value="20" style="accent-color:var(--blue)" aria-label="minutos"><output id="pmv">20</output></div>
+        <canvas id="cvPlans" class="plot" style="height:220px"></canvas>
+        <div class="pills">
+          <span class="pill teal" id="pA"></span>
+          <span class="pill org" id="pB"></span>
+          <span class="pill" id="pVerd"></span>
+        </div>
+        <p style="font-size:.88rem;color:var(--ink2)">Resolvendo <span class="math">30 + 0,5m = 10 + 0,9m</span> achamos <strong>m = 50 min</strong>: até aí o B compensa; a partir daí, o A. O barato depende de <em>quanto</em> você usa — é a reta decidindo por você.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pills reveal">
+    <span class="pill">💼 salário fixo + comissão</span>
+    <span class="pill">⛽ custo do combustível</span>
+    <span class="pill">🚰 conta de água por m³</span>
+    <span class="pill">🏃 distância = velocidade × tempo</span>
+  </div>
+</section>
+
+<!-- faixa motivacional -->
+<div class="quote-band">
+  <div class="quote-rot" data-offset="3" aria-live="polite"><blockquote></blockquote><cite></cite></div>
+</div>
+
+<!-- ================= 03 · 2º GRAU ================= -->
+<section class="section band-quad" id="g2">
+  <div class="sec-head reveal">
+    <span class="sec-num">03</span>
+    <span class="kicker">Curvas, vértices e máximos</span>
+    <h2>Função do 2º grau: <span class="math">f(x) = ax² + bx + c</span></h2>
+    <p class="sub">Quando a variação <strong>acelera</strong> — ou quando existe um <strong>ponto ótimo</strong> — a reta não basta. Entra a parábola.</p>
+  </div>
+
+  <div class="reveal">
+    <p>Uma função do <strong>2º grau</strong> (ou <strong>quadrática</strong>) tem a forma <span class="math">f(x) = ax² + bx + c</span>, com <span class="math">a ≠ 0</span>. Por que o <span class="math">x²</span> aparece tanto na natureza? Porque ele surge sempre que uma grandeza <em>multiplica a si mesma</em> ou a outra que também varia: <strong>área</strong> (lado × lado), <strong>gravidade</strong> (o espaço depende de t × t), <strong>receita</strong> (preço × quantidade, quando um depende do outro).</p>
+    <p>Se <span class="math">b</span> ou <span class="math">c</span> forem zero, a função é <strong>incompleta</strong>, mas continua de 2º grau: <span class="math">x² − 4</span>, <span class="math">3x²</span>, <span class="math">−x² + 5x</span>.</p>
+  </div>
+
+  <div class="anat reveal">
+    <div class="card">
+      <h4><span class="coef k2a">a</span> Concavidade e abertura</h4>
+      <p><span class="math">a &gt; 0</span> → concavidade para <strong>cima</strong> 🙂 (a parábola “segura água” e tem um <strong>mínimo</strong>). <span class="math">a &lt; 0</span> → para <strong>baixo</strong> ☹ (tem um <strong>máximo</strong>). Quanto maior <span class="math">|a|</span>, mais “fechada” ela é.</p>
+    </div>
+    <div class="card">
+      <h4><span class="coef k2b">b</span> e <span class="coef k2c">c</span> Posição</h4>
+      <p><span class="math">c</span> é o corte no eixo y: o ponto <span class="math">(0, c)</span>. O <span class="math">b</span> “empurra” a parábola lateralmente: curiosidade elegante — no ponto <span class="math">x = 0</span>, a curva está subindo/descendo com inclinação exatamente igual a <span class="math">b</span>.</p>
+    </div>
+    <div class="card">
+      <h4><span style="font-size:1.3rem">🎯</span> Raízes: quantas?</h4>
+      <p>Onde a parábola cruza o eixo x (<span class="math">f(x)=0</span>). Podem ser <strong>duas</strong>, <strong>uma</strong> (ela apenas toca) ou <strong>nenhuma</strong> (não chega ao eixo). Quem decide é o discriminante Δ.</p>
+    </div>
+  </div>
+
+  <h3 class="reveal">Δ (delta) e a fórmula de Bhaskara</h3>
+  <p class="reveal">O <strong>discriminante</strong> <span class="math">Δ = b² − 4ac</span> conta quantas raízes existem — e a fórmula <span class="math">x = (−b ± √Δ) / 2a</span> diz onde elas estão:</p>
+  <div class="pills reveal">
+    <span class="pill ok">Δ &gt; 0 → duas raízes reais distintas</span>
+    <span class="pill warn">Δ = 0 → uma raiz real (dupla): a parábola beija o eixo x</span>
+    <span class="pill bad">Δ &lt; 0 → nenhuma raiz real: √Δ não existe nos reais</span>
+  </div>
+  <div class="callout co-quad reveal">
+    <div class="co-t">✏️ Exemplo resolvido, sem pressa: <span class="math">f(x) = x² − 4x + 3</span></div>
+    <p style="margin:0">① Coeficientes: <span class="k2-a">a = 1</span>, <span class="k2-b">b = −4</span>, <span class="k2-c">c = 3</span> → concavidade para cima.<br>
+    ② <span class="math">Δ = (−4)² − 4·1·3 = 16 − 12 = 4</span> → duas raízes.<br>
+    ③ <span class="math">x = (4 ± √4)/2 = (4 ± 2)/2</span> → <span class="math">x₁ = 1</span> e <span class="math">x₂ = 3</span>.<br>
+    ④ Vértice: <span class="math">xv = −b/2a = 4/2 = 2</span>; <span class="math">f(2) = −1</span> → ponto de mínimo <span class="math">V(2, −1)</span>.<br>
+    ⑤ Repare: o vértice fica <em>exatamente no meio</em> das raízes (1 e 3). Sempre fica!</p>
+  </div>
+
+  <h3 class="reveal">O vértice: o ponto mais importante da parábola</h3>
+  <p class="reveal"><span class="math">xv = −b/2a</span> e <span class="math">yv = −Δ/4a</span>. Se <span class="math">a &lt; 0</span>, o vértice é o <strong>valor máximo</strong> da função (o topo do voo da bola, o lucro máximo da loja); se <span class="math">a &gt; 0</span>, é o <strong>mínimo</strong>. A reta vertical <span class="math">x = xv</span> é o <strong>eixo de simetria</strong>: a parábola é um espelho em torno dela. Outra forma útil de escrever: <span class="math">f(x) = a(x − x₁)(x − x₂)</span> quando existem raízes.</p>
+  <p class="note-hand reveal">“O vértice não é o fim da curva: é o ponto onde tudo muda de sentido.” — Prof. Anderson Daniel</p>
+
+  <!-- LAB 2 -->
+  <div class="lab reveal" id="lab2">
+    <div class="panel r-quad">
+      <div class="p-head">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <b>Laboratório 2 — A parábola viva (com Bhaskara ao vivo)</b>
+      </div>
+      <div class="p-body">
+        <div class="ctrls">
+          <div class="tip-use">🎛️ Desafio: tente deixar Δ exatamente zero. Depois, faça a parábola “flutuar” sem tocar o eixo x.</div>
+          <div class="ctrl"><span class="coef k2a">a</span><input type="range" id="l2a" min="-3" max="3" step="0.1" value="1" aria-label="coeficiente a"><output id="l2av">1</output></div>
+          <div class="ctrl"><span class="coef k2b">b</span><input type="range" id="l2b" min="-10" max="10" step="0.5" value="-4" aria-label="coeficiente b"><output id="l2bv">−4</output></div>
+          <div class="ctrl"><span class="coef k2c">c</span><input type="range" id="l2c" min="-10" max="10" step="0.5" value="3" aria-label="coeficiente c"><output id="l2cv">3</output></div>
+          <div class="eqbox" id="l2eq" style="font-size:1.1rem"></div>
+          <p class="readline math" id="l2delta" style="font-size:.95rem"></p>
+          <div class="pills" style="margin:4px 0"><span class="pill" id="l2status"></span></div>
+          <p class="readline" id="l2roots"></p>
+          <p class="readline" id="l2vert"></p>
+          <p class="readline math" id="l2bh" style="font-size:.95rem;color:var(--ink2)"></p>
+          <div class="presets">
+            <button data-a="1" data-b="-4" data-c="3">x²−4x+3</button>
+            <button data-a="1" data-b="-2" data-c="1">(x−1)²</button>
+            <button data-a="1" data-b="0" data-c="1">x²+1 🚫</button>
+            <button data-a="-1" data-b="4" data-c="0">−x²+4x</button>
+            <button data-a="0" data-b="2" data-c="1">a = 0 😱</button>
+          </div>
+        </div>
+        <div>
+          <canvas id="cv2" class="plot" style="height:340px"></canvas>
+          <div class="legend">
+            <span><i style="background:var(--quad)"></i>parábola</span>
+            <span><i style="background:var(--red)"></i>raízes</span>
+            <span><i style="background:var(--sun)"></i>vértice V</span>
+            <span><i style="background:var(--blue)"></i>corte no eixo y</span>
+            <span><i style="background:#cfd6e4"></i>eixo de simetria</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout co-red reveal">
+    <div class="co-t">🚫 Erros comuns do 2º grau</div>
+    <ul style="margin-left:18px;font-size:.95rem">
+      <li>Se <span class="math">a = 0</span>, a função <strong>não é</strong> de 2º grau (teste o botão “a = 0” no laboratório!).</li>
+      <li><span class="math">Δ &lt; 0</span> não significa “raiz zero” — significa que a parábola <strong>nunca toca</strong> o eixo x.</li>
+      <li>O vértice não é a “média de qualquer coisa”: <span class="math">xv = −b/2a</span>, sempre. E o valor máximo/mínimo é <span class="math">yv = f(xv)</span>, não xv!</li>
+    </ul>
+  </div>
+
+  <h3 class="reveal">🌎 O 2º grau em ação</h3>
+  <div class="duo">
+    <div class="panel reveal">
+      <div class="p-head"><span class="dots"><i></i><i></i><i></i></span><b>Lançamento vertical ⚽</b></div>
+      <div class="p-body" style="grid-template-columns:1fr">
+        <p style="font-size:.95rem">Uma bola lançada para cima segue <span class="math">h(t) = v₀·t − 5t²</span> (altura em metros, tempo em segundos). É a gravidade desenhando uma parábola com <span class="math">a = −5</span> — por isso tudo que sobe… desce.</p>
+        <div class="ctrl"><span class="coef k2a">v₀</span><input type="range" id="pV" min="5" max="30" step="1" value="20" aria-label="velocidade inicial"><output id="pVv">20</output></div>
+        <canvas id="cvP" class="plot" style="height:230px"></canvas>
+        <div class="pills">
+          <span class="pill org" id="pTv"></span>
+          <span class="pill org" id="pHv"></span>
+          <span class="pill org" id="pAp"></span>
+          <span class="pill" id="pNow"></span>
+        </div>
+        <button class="btn" id="pPlay">▶ Lançar a bola</button>
+      </div>
+    </div>
+    <div class="panel reveal">
+      <div class="p-head"><span class="dots"><i></i><i></i><i></i></span><b>Lucro máximo da lanchonete 🍔</b></div>
+      <div class="p-body" style="grid-template-columns:1fr">
+        <p style="font-size:.95rem">Preço baixo → vende muito, ganha pouco. Preço alto → ganha por unidade, vende quase nada. O modelo <span class="math">L(x) = −x² + 60x − 500</span> (x = preço em R$) mostra que existe um <strong>ponto doce</strong>: o vértice!</p>
+        <div class="ctrl"><span class="coef k2a">x</span><input type="range" id="lx" min="0" max="60" step="1" value="15" aria-label="preço"><output id="lxv">15</output></div>
+        <canvas id="cvL" class="plot" style="height:230px"></canvas>
+        <div class="pills">
+          <span class="pill org" id="lNow"></span>
+          <span class="pill ok">Máximo: R$ 400,00 com preço R$ 30</span>
+          <span class="pill">Dá lucro entre R$ 10 e R$ 50</span>
+        </div>
+        <p style="font-size:.88rem;color:var(--ink2)">As raízes (10 e 50) são os <strong>pontos de equilíbrio</strong>: ali o lucro é zero. Entre elas, a parábola fica acima do eixo — e o topo é o melhor negócio possível.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pills reveal">
+    <span class="pill">📡 antenas parabólicas</span>
+    <span class="pill">🌉 arcos de pontes</span>
+    <span class="pill">🎮 trajetórias em games</span>
+    <span class="pill">📐 otimização de áreas</span>
+  </div>
+</section>
+
+<!-- ================= 04 · CARA A CARA ================= -->
+<section class="section" id="duelo">
+  <div class="sec-head reveal">
+    <span class="sec-num">04</span>
+    <span class="kicker">Comparação</span>
+    <h2>Reta × Parábola: cara a cara</h2>
+  </div>
+
+  <div class="reveal tb-wrap">
+    <table class="tb">
+      <tr><th></th><th>1º grau</th><th>2º grau</th></tr>
+      <tr><td><b>Forma geral</b></td><td class="c1"><span class="math">ax + b</span>, <span class="math">a ≠ 0</span></td><td class="c2"><span class="math">ax² + bx + c</span>, <span class="math">a ≠ 0</span></td></tr>
+      <tr><td><b>Gráfico</b></td><td class="c1">reta</td><td class="c2">parábola</td></tr>
+      <tr><td><b>Papel do a</b></td><td class="c1">inclinação constante</td><td class="c2">concavidade e abertura</td></tr>
+      <tr><td><b>Raízes</b></td><td class="c1">sempre 1: <span class="math">x = −b/a</span></td><td class="c2">0, 1 ou 2 — depende de Δ</td></tr>
+      <tr><td><b>Extremos</b></td><td class="c1">não tem</td><td class="c2">vértice = máximo ou mínimo</td></tr>
+      <tr><td><b>Ritmo</b></td><td class="c1">constante: Δy = a·Δx</td><td class="c2">acelerado: diferenças crescem</td></tr>
+      <tr><td><b>Cotidiano</b></td><td class="c1">táxi, planos, °C→°F</td><td class="c2">projéteis, lucro, áreas</td></tr>
+    </table>
+  </div>
+
+  <div class="duo rev">
+    <div class="card reveal">
+      <canvas id="cvC" class="plot" style="height:300px"></canvas>
+      <div class="legend">
+        <span><i style="background:var(--lin)"></i>y = x + 1</span>
+        <span><i style="background:var(--quad)"></i>y = x² − 1</span>
+        <span><i style="background:var(--ink)"></i>interseções</span>
+      </div>
+    </div>
+    <div class="reveal">
+      <h3 style="margin-top:0">Onde elas se encontram?</h3>
+      <p>A interseção de dois gráficos resolve a pergunta <strong>“quando as saídas são iguais?”</strong> — basta igualar as leis:</p>
+      <p class="math" style="font-size:1.05rem">x + 1 = x² − 1 ⟺ x² − x − 2 = 0<br>⟹ x = 2 ou x = −1</p>
+      <p>Substituindo de volta: pontos <span class="math">(2, 3)</span> e <span class="math">(−1, 0)</span>. Uma reta e uma parábola se encontram em <strong>no máximo 2 pontos</strong> — coerente com o “2” do 2º grau.</p>
+      <div class="callout co-sun" style="margin-bottom:0">
+        <div class="co-t">🐢🐇 Quem vence no longo prazo?</div>
+        <p style="margin:0">Compare <span class="math">x²</span> e <span class="math">100x</span>: a reta parece imbatível… até <span class="math">x = 100</span>. Depois disso, a parábola dispara e nunca mais é alcançada. <strong>Crescimento quadrático sempre alcança o linear.</strong> É por isso que juros compostos e epidemias “explodem”.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- faixa motivacional -->
+<div class="quote-band">
+  <div class="quote-rot" data-offset="6" aria-live="polite"><blockquote></blockquote><cite></cite></div>
+</div>
+
+<!-- ================= 05 · QUIZ ================= -->
+<section class="section" id="quiz">
+  <div class="sec-head reveal">
+    <span class="sec-num">05</span>
+    <span class="kicker">Teste rápido</span>
+    <h2>Quiz: você pegou a ideia?</h2>
+    <p class="sub">Responda e receba a explicação na hora. Errar faz parte — ler o “porquê” é o que ensina.</p>
+  </div>
+  <div class="card quiz-score reveal">
+    <strong id="qScore">Acertos: 0 / 9</strong>
+    <div class="qbar"><i id="qFill"></i></div>
+    <button class="btn ghost" id="qReset" style="padding:8px 16px;font-size:.85rem">↻ Reiniciar</button>
+  </div>
+  <div id="quizBox"></div>
+  <div class="callout co-sun" id="quizFinal">
+    <div class="co-t" id="qFinalTitle"></div>
+    <p style="margin:0" id="qFinalMsg"></p>
+  </div>
+</section>
+
+<!-- ================= 06 · EXERCÍCIOS ================= -->
+<section class="section" id="exercicios">
+  <div class="sec-head reveal">
+    <span class="sec-num">06</span>
+    <span class="kicker">Prática deliberada</span>
+    <h2>Exercícios com solução passo a passo</h2>
+    <p class="sub">Tente primeiro no caderno. Só depois abra a solução — e compare <em>o raciocínio</em>, não apenas o resultado. <em>(Dica: ao imprimir, as soluções abrem sozinhas.)</em></p>
+  </div>
+
+  <details class="ex reveal"><summary><span class="n">1</span>&nbsp;Para <span class="math">f(x) = 3x − 7</span>, calcule f(0), f(2) e f(−1).</summary>
+    <div class="sol">Substitua x em cada caso: <b>f(0)</b> = 3·0 − 7 = <b>−7</b>; <b>f(2)</b> = 3·2 − 7 = 6 − 7 = <b>−1</b>; <b>f(−1)</b> = 3·(−1) − 7 = −3 − 7 = <b>−10</b>. Calcular f(a) é sempre a mesma operação: trocar x pelo número.</div></details>
+
+  <details class="ex reveal"><summary><span class="n">2</span>&nbsp;Encontre a raiz de <span class="math">f(x) = −4x + 16</span>.</summary>
+    <div class="sol">Raiz ⟺ f(x) = 0: −4x + 16 = 0 ⟹ 4x = 16 ⟹ <b>x = 4</b>. Conferindo: f(4) = −16 + 16 = 0 ✓. O gráfico corta o eixo x em (4, 0) e o eixo y em (0, 16).</div></details>
+
+  <details class="ex reveal"><summary><span class="n">3</span>&nbsp;Uma função afim satisfaz f(1) = 5 e f(3) = 9. Determine sua lei.</summary>
+    <div class="sol">Inclinação: a = Δy/Δx = (9 − 5)/(3 − 1) = 4/2 = <b>2</b>. Depois use um ponto: f(1) = 5 ⟹ 2·1 + b = 5 ⟹ b = 3. Lei: <b>f(x) = 2x + 3</b>. Conferindo: f(3) = 6 + 3 = 9 ✓. Dois pontos sempre determinam uma reta!</div></details>
+
+  <details class="ex reveal"><summary><span class="n">4</span>&nbsp;Analise <span class="math">f(x) = 2x − 4</span>: crescimento, raiz, corte no eixo y e sinal.</summary>
+    <div class="sol">a = 2 &gt; 0 ⟹ <b>crescente</b>. Raiz: 2x = 4 ⟹ <b>x = 2</b>. Corte em y: <b>(0, −4)</b>. Sinal: f(x) &gt; 0 para x &gt; 2 e f(x) &lt; 0 para x &lt; 2 (a raiz é a fronteira).</div></details>
+
+  <details class="ex reveal"><summary><span class="n">5</span>&nbsp;Resolva <span class="math">x² − 5x + 6 = 0</span> via Bhaskara.</summary>
+    <div class="sol">a = 1, b = −5, c = 6. Δ = 25 − 24 = <b>1</b> (duas raízes). x = (5 ± 1)/2 ⟹ <b>x₁ = 2, x₂ = 3</b>. Verificação elegante: soma das raízes = 5 = −b/a; produto = 6 = c/a ✓</div></details>
+
+  <details class="ex reveal"><summary><span class="n">6</span>&nbsp;E <span class="math">x² + 4x + 4 = 0</span>? O que há de especial?</summary>
+    <div class="sol">Δ = 16 − 16 = <b>0</b> ⟹ raiz dupla: x = −4/2 = <b>−2</b>. O lado esquerdo é um quadrado perfeito: (x + 2)². No gráfico, a parábola apenas <b>toca</b> o eixo x no ponto (−2, 0) — o vértice está sobre o eixo.</div></details>
+
+  <details class="ex reveal"><summary><span class="n">7</span>&nbsp;Mostre que <span class="math">−x² + 6x − 10</span> não tem raízes reais e diga o sinal da função.</summary>
+    <div class="sol">Δ = 36 − 4·(−1)·(−10) = 36 − 40 = <b>−4 &lt; 0</b> ⟹ nenhuma raiz real: a parábola nunca cruza o eixo x. Como a = −1 &lt; 0 (concavidade para baixo), ela fica inteira <b>abaixo</b> do eixo: f(x) &lt; 0 para todo x. (Confirme no Laboratório 2!)</div></details>
+
+  <details class="ex reveal"><summary><span class="n">8</span>&nbsp;O lucro de uma loja é <span class="math">L(x) = −x² + 40x − 300</span> (x = quantidade vendida). Encontre o lucro máximo e a faixa com lucro positivo.</summary>
+    <div class="sol">xv = −40/(2·(−1)) = <b>20 unidades</b>. L(20) = −400 + 800 − 300 = <b>R$ 100</b> (lucro máximo). Raízes: Δ = 1600 − 1200 = 400 ⟹ x = (40 ± 20)/2 ⟹ 10 e 30. Como a &lt; 0, L &gt; 0 <b>entre as raízes</b>: é preciso vender entre 10 e 30 unidades para ter lucro.</div></details>
+
+  <details class="ex reveal"><summary><span class="n">9</span>&nbsp;Uma bola segue <span class="math">h(t) = −5t² + 30t</span>. Altura máxima? Quando volta ao chão?</summary>
+    <div class="sol">Ápice: tv = −30/(2·(−5)) = <b>3 s</b>; h(3) = −45 + 90 = <b>45 m</b>. Volta ao chão quando h = 0: −5t(t − 6) = 0 ⟹ t = 0 (lançamento) ou <b>t = 6 s</b>. Simetria da parábola: sobe 3 s, desce 3 s.</div></details>
+</section>
+
+<!-- ================= 07 · RESUMO ================= -->
+<section class="section" id="resumo">
+  <div class="board reveal">
+    <span class="kicker" style="color:var(--sun)">Para colar na memória</span>
+    <h2>O quadro-negro da aula 🖍️</h2>
+    <div class="fgrid">
+      <div class="fcard"><h4>1º grau</h4><p class="math">f(x) = ax + b, a ≠ 0</p><p style="font-size:.85rem;margin:6px 0 0">Reta · raiz única <span class="math">x = −b/a</span> · cresce de a em a</p></div>
+      <div class="fcard"><h4>2º grau</h4><p class="math">f(x) = ax² + bx + c, a ≠ 0</p><p style="font-size:.85rem;margin:6px 0 0">Parábola · concavidade dada pelo sinal de a</p></div>
+      <div class="fcard"><h4>Discriminante</h4><p class="math">Δ = b² − 4ac</p><p style="font-size:.85rem;margin:6px 0 0">&gt;0: 2 raízes · =0: 1 raiz · &lt;0: nenhuma</p></div>
+      <div class="fcard"><h4>Bhaskara</h4><p class="math">x = (−b ± √Δ) / 2a</p><p style="font-size:.85rem;margin:6px 0 0">As raízes são simétricas em torno de xv</p></div>
+      <div class="fcard"><h4>Vértice</h4><p class="math">xv = −b/2a &nbsp;·&nbsp; yv = −Δ/4a</p><p style="font-size:.85rem;margin:6px 0 0">a&lt;0: máximo ⌢ · a&gt;0: mínimo ⌣</p></div>
+      <div class="fcard"><h4>Regra de ouro</h4><p class="math">mesma entrada ⇒ mesma saída</p><p style="font-size:.85rem;margin:6px 0 0">Função = dependência previsível entre grandezas</p></div>
+    </div>
+    <h3 style="color:#fff">Mini glossário</h3>
+    <div class="gloss">
+      <span><b>raiz</b>: x onde f(x)=0</span><span><b>vértice</b>: ponto ótimo da parábola</span>
+      <span><b>coef. angular</b>: inclinação</span><span><b>coef. linear</b>: corte no eixo y</span>
+      <span><b>domínio</b>: entradas possíveis</span><span><b>imagem</b>: saídas obtidas</span>
+      <span><b>parábola</b>: gráfico do 2º grau</span><span><b>eixo de simetria</b>: x = xv</span>
+    </div>
+    <h3 style="color:#fff">Como estudar com esta página</h3>
+    <ul>
+      <li>Nos laboratórios, <b>preveja antes de arrastar</b> — depois confira. É assim que se cria intuição.</li>
+      <li>Refaça os exemplos resolvidos <b>sem olhar</b>, só com a fórmula do quadro.</li>
+      <li>Conecte sempre as três roupas: <b>tabela ↔ fórmula ↔ gráfico</b>.</li>
+      <li>No quiz, leia a explicação mesmo quando acertar.</li>
+    </ul>
+    <span class="chalk-note">“Matemática não se assiste: se faz.” — Prof. Anderson Daniel ✏️</span>
+  </div>
+</section>
+
+<button id="fab" aria-label="Voltar ao topo">↑</button>
+
+<footer>
+  <span class="foot-logo-card">
+    <img class="logo-img" src="logo.jpg" alt="Logo UAUEduca">
+  </span>
+  <p class="hand">Feita para colocar a mão na massa 🎛️</p>
+  <p class="prof-name">Professor Anderson Daniel</p>
+  <p style="font-size:.85rem;margin-top:6px">UAUEduca · Educação Multidisciplinar · 2026 — aula 100% no navegador · <a href="#" style="color:var(--sun)" onclick="scrollTo({top:0,behavior:'smooth'});return false">voltar ao topo ↑</a></p>
+</footer>
+
+<script>
+/* ================= UTILITÁRIOS ================= */
+const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fmt=v=>{if(!isFinite(v))return'—';let r=Math.round(v*100)/100;if(Object.is(r,-0))r=0;return String(r);};
+const fmtBR=v=>fmt(v).replace('.',',');
+const money=v=>'R$ '+v.toFixed(2).replace('.',',');
+const COL={lin:'#0d7f6e',quad:'#d9531e',red:'#c8385a',blue:'#3568c9',sun:'#ffd23f',ink:'#1c2b4a'};
+const mix=(c1,c2,t)=>{const a=parseInt(c1.slice(1),16),b=parseInt(c2.slice(1),16);
+  const r=Math.round((a>>16)+(((b>>16)-(a>>16))*t)),g=Math.round(((a>>8)&255)+((((b>>8)&255)-((a>>8)&255))*t)),bl=Math.round((a&255)+(((b&255)-(a&255))*t));
+  return `rgb(${r},${g},${bl})`;};
+function niceStep(raw){const c=[0.25,0.5,1,2,2.5,5,10,20,25,50,100,200,250,500,1000];for(const s of c)if(s>=raw)return s;return c[c.length-1];}
+
+/* ================= MOTOR DE GRÁFICOS ================= */
+function ctx2d(cv){const r=cv.getBoundingClientRect(),d=devicePixelRatio||1,W=Math.round(r.width*d),H=Math.round(r.height*d);
+  if(W===0||H===0)return null;
+  if(cv.width!==W||cv.height!==H){cv.width=W;cv.height=H;}
+  const ctx=cv.getContext('2d');ctx.setTransform(d,0,0,d,0,0);return{ctx,w:r.width,h:r.height};}
+function plot(cv,cfg){
+  const c=ctx2d(cv);if(!c)return;const{ctx,w,h}=c;
+  const X=x=>(x-cfg.x0)/(cfg.x1-cfg.x0)*w, Y=y=>h-(y-cfg.y0)/(cfg.y1-cfg.y0)*h;
+  const st=cfg.step||1;
+  ctx.clearRect(0,0,w,h);ctx.fillStyle='#fff';ctx.fillRect(0,0,w,h);
+  ctx.lineWidth=1;ctx.strokeStyle='rgba(46,93,150,.13)';ctx.beginPath();
+  const nx=Math.ceil((cfg.x1-cfg.x0)/st);for(let i=0;i<=nx;i++){const px=Math.round(X(cfg.x0+i*st))+.5;ctx.moveTo(px,0);ctx.lineTo(px,h);}
+  const ny=Math.ceil((cfg.y1-cfg.y0)/st);for(let i=0;i<=ny;i++){const py=Math.round(Y(cfg.y0+i*st))+.5;ctx.moveTo(0,py);ctx.lineTo(w,py);}
+  ctx.stroke();
+  const xAx=(cfg.y0<0&&cfg.y1>0), yAx=(cfg.x0<0&&cfg.x1>0);
+  ctx.strokeStyle='rgba(28,43,74,.6)';ctx.lineWidth=1.6;
+  if(xAx){ctx.beginPath();ctx.moveTo(0,Y(0));ctx.lineTo(w,Y(0));ctx.stroke();
+    ctx.beginPath();ctx.moveTo(w-8,Y(0)-4);ctx.lineTo(w,Y(0));ctx.lineTo(w-8,Y(0)+4);ctx.stroke();}
+  if(yAx){ctx.beginPath();ctx.moveTo(X(0),0);ctx.lineTo(X(0),h);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(X(0)-4,8);ctx.lineTo(X(0),0);ctx.lineTo(X(0)+4,8);ctx.stroke();}
+  ctx.fillStyle='#7a86a3';ctx.font='10.5px "Atkinson Hyperlegible",sans-serif';
+  const lx=niceStep((cfg.x1-cfg.x0)/8), ly=niceStep((cfg.y1-cfg.y0)/8);
+  const ly0=xAx?Math.min(Y(0)+14,h-6):h-6;
+  ctx.textAlign='center';ctx.textBaseline='alphabetic';
+  for(let k=Math.ceil(cfg.x0/lx)*lx;k<=cfg.x1+1e-9;k+=lx){if(Math.abs(k)<1e-9)continue;ctx.fillText(fmtBR(k),X(k),ly0);}
+  ctx.textBaseline='middle';
+  for(let k=Math.ceil(cfg.y0/ly)*ly;k<=cfg.y1+1e-9;k+=ly){if(Math.abs(k)<1e-9)continue;
+    const px=yAx?Math.max(X(0)-7,22):22;ctx.textAlign='right';ctx.fillText(fmtBR(k),px,Y(k));}
+  if(cfg.xname){ctx.textAlign='right';ctx.textBaseline='bottom';ctx.fillStyle='#4a5878';ctx.font='bold 11px "Atkinson Hyperlegible",sans-serif';ctx.fillText(cfg.xname,w-8,h-8);}
+  if(cfg.yname){ctx.textAlign='left';ctx.textBaseline='top';ctx.fillStyle='#4a5878';ctx.font='bold 11px "Atkinson Hyperlegible",sans-serif';ctx.fillText(cfg.yname,8,6);}
+  ctx.save();ctx.beginPath();ctx.rect(0,0,w,h);ctx.clip();
+  if(cfg.vlines)for(const v of cfg.vlines){ctx.setLineDash([6,6]);ctx.strokeStyle=v.color||'rgba(28,43,74,.35)';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(X(v.x),0);ctx.lineTo(X(v.x),h);ctx.stroke();ctx.setLineDash([]);}
+  if(cfg.trail){ctx.fillStyle=cfg.trail.color;for(let t=0;t<=cfg.trail.to+1e-9;t+=cfg.trail.step){
+    ctx.beginPath();ctx.arc(X(t),Y(cfg.trail.f(t)),3,0,7);ctx.fill();}}
+  for(const cu of cfg.curves){ctx.strokeStyle=cu.color;ctx.lineWidth=cu.w||3;if(cu.dash)ctx.setLineDash(cu.dash);
+    ctx.beginPath();let pen=false;const N=Math.max(200,Math.round(w));
+    for(let i=0;i<=N;i++){const x=cfg.x0+(cfg.x1-cfg.x0)*i/N,y=cu.f(x);
+      if(!isFinite(y)){pen=false;continue;}
+      const px=X(x),py=Math.max(-2000,Math.min(h+2000,Y(y)));
+      pen?ctx.lineTo(px,py):(ctx.moveTo(px,py),pen=true);}
+    ctx.stroke();ctx.setLineDash([]);}
+  if(cfg.points)for(const p of cfg.points){const px=X(p.x),py=Y(p.y);if(px<-10||px>w+10||py<-10||py>h+10)continue;
+    const r=p.r||5.5;ctx.beginPath();ctx.arc(px,py,r,0,7);ctx.fillStyle=p.color;ctx.fill();
+    ctx.lineWidth=2;ctx.strokeStyle=p.ink?'#1c2b4a':'#fff';ctx.stroke();
+    if(p.label){ctx.font='bold 12px "Atkinson Hyperlegible",sans-serif';ctx.textAlign='center';ctx.textBaseline='alphabetic';
+      const tx=px+(p.dx||0),ty=py+(p.dy||-11);
+      ctx.lineWidth=4;ctx.strokeStyle='rgba(255,255,255,.92)';ctx.strokeText(p.label,tx,ty);
+      ctx.fillStyle='#1c2b4a';ctx.fillText(p.label,tx,ty);}}
+  ctx.restore();
+}
+
+/* ================= FRASES MOTIVACIONAIS ================= */
+const QUOTES=[
+ {t:'Eu ouço e eu esqueço. Eu vejo e eu lembro. Eu faço e eu entendo.',a:'Confúcio'},
+ {t:'A educação não transforma o mundo. Educação muda pessoas. Pessoas transformam o mundo.',a:'Paulo Freire'},
+ {t:'Não se preocupe com as suas dificuldades em Matemática; posso assegurar que as minhas são maiores.',a:'Albert Einstein'},
+ {t:'A Matemática é o alfabeto com o qual Deus escreveu o universo.',a:'Galileu Galilei'},
+ {t:'O sucesso é a soma de pequenos esforços repetidos dia após dia.',a:'Robert Collier'},
+ {t:'Ensinar não é transferir conhecimento, mas criar as possibilidades para a sua produção.',a:'Paulo Freire'},
+ {t:'Cada coeficiente que você entende vira uma lente a mais para ler o mundo.',a:'Prof. Anderson Daniel'},
+ {t:'O vértice não é o fim da curva: é o ponto onde tudo muda de sentido.',a:'Prof. Anderson Daniel'},
+ {t:'Não existe reta sem direção, nem estudante sem potencial.',a:'Prof. Anderson Daniel'},
+ {t:'Errar agora é treinar o erro para não errar na prova.',a:'Prof. Anderson Daniel'}
+];
+$$('.quote-rot').forEach(el=>{
+  let i=(+el.dataset.offset||0)%QUOTES.length;
+  const bq=el.querySelector('blockquote'),ct=el.querySelector('cite');
+  const render=()=>{el.classList.add('fade');setTimeout(()=>{
+    bq.textContent='“'+QUOTES[i].t+'”';ct.textContent='— '+QUOTES[i].a;el.classList.remove('fade');},reduced?0:350);};
+  render();
+  if(!reduced)setInterval(()=>{i=(i+1)%QUOTES.length;render();},9000);
+});
+
+/* ================= HERO ================= */
+let heroMode='mix';
+function heroDraw(now){
+  const t=heroMode==='lin'?0:heroMode==='quad'?1:(Math.sin(now/1600)+1)/2;
+  const f=x=>(1-t)*(0.8*x+0.5)+t*(0.5*x*x-2.2);
+  const xd=2.6*Math.sin(now/2300);
+  plot($('#heroCv'),{x0:-5,x1:5,y0:-4.5,y1:4.5,step:1,
+    curves:[{f,color:mix('#0d7f6e','#d9531e',t),w:4}],
+    points:[{x:xd,y:f(xd),color:'#1c2b4a',r:7,label:''}]});
+  $('#heroModeLbl').textContent='modo: '+(t<0.3?'1º grau':t>0.7?'2º grau':'mistura…');
+}
+[['#hmLin','lin'],['#hmQuad','quad'],['#hmMix','mix']].forEach(([id,m])=>{
+  $(id).addEventListener('click',()=>{heroMode=m;$$('.modes button').forEach(b=>b.classList.remove('on'));$(id).classList.add('on');
+    if(reduced)heroDraw(0);});});
+if(reduced){heroMode='quad';heroDraw(0);}else{(function loop(n){heroDraw(n||0);requestAnimationFrame(loop);})(0);}
+
+/* ================= LAB 1 · RETA ================= */
+function termLin(a,b){
+  const pa=Math.abs(a)===1?(a===1?'x':'−x'):fmtBR(a)+'x';
+  return `f(x) = <span class="k-a">${pa}</span> ${b>=0?'+':'−'} <span class="k-b">${fmtBR(Math.abs(b))}</span>`;}
+function up1(){
+  const a=+$('#l1a').value,b=+$('#l1b').value;
+  $('#l1av').textContent=fmtBR(a);$('#l1bv').textContent=fmtBR(b);
+  $('#l1eq').innerHTML=termLin(a,b);
+  const t=$('#l1type');
+  if(a>0){t.textContent='↗ crescente (a > 0)';t.className='pill ok';}
+  else if(a<0){t.textContent='↘ decrescente (a < 0)';t.className='pill bad';}
+  else{t.textContent='a = 0 → reta constante (sai do 1º grau!)';t.className='pill warn';}
+  $('#l1root').innerHTML=a!==0?`Raiz: <span class="math">x₀ = −b/a = ${fmtBR(-b/a)}</span> — onde a reta cruza o eixo x.`:'Sem raiz definida (reta horizontal).';
+  $('#t1step').textContent=fmtBR(Math.abs(a));$('#t1step2').textContent=fmtBR(Math.abs(a));
+  [-2,-1,0,1,2].forEach((x,i)=>$('#t1y'+i).textContent=fmtBR(a*x+b));
+  const pts=[{x:0,y:b,color:COL.blue,label:`(0, ${fmtBR(b)})`,dy:-12}];
+  if(a!==0){const x0=-b/a;if(Math.abs(x0)<=8)pts.push({x:x0,y:0,color:COL.red,label:`x₀ = ${fmtBR(x0)}`,dy:22});}
+  plot($('#cv1'),{x0:-8,x1:8,y0:-10,y1:10,step:1,curves:[{f:x=>a*x+b,color:COL.lin,w:3.5}],points:pts});
+}
+['#l1a','#l1b'].forEach(id=>$(id).addEventListener('input',up1));
+$$('#lab1 .presets button').forEach(b=>b.addEventListener('click',()=>{$('#l1a').value=b.dataset.a;$('#l1b').value=b.dataset.b;up1();}));
+
+/* ================= TÁXI ================= */
+function upTaxi(){
+  const km=+$('#tkm').value,c=5+2.5*km;
+  $('#tkmv').textContent=fmtBR(km);
+  $('#tsegKm').style.flexGrow=km;
+  $('#tsegKm').textContent=km>=4?fmtBR(km)+' km':'';
+  $('#tcalc').innerHTML=`C = 5,00 + 2,50 × <b>${fmtBR(km)}</b> = <b>${money(c)}</b>`;
+  $('#tcost').textContent=money(c);
+}
+$('#tkm').addEventListener('input',upTaxi);
+
+/* ================= PLANOS ================= */
+function upPlans(){
+  const m=+$('#pm').value,A=30+0.5*m,B=10+0.9*m;
+  $('#pmv').textContent=fmtBR(m);
+  $('#pA').textContent='Plano A: '+money(A);$('#pB').textContent='Plano B: '+money(B);
+  const v=$('#pVerd');
+  if(m<50){v.textContent='✅ Plano B mais barato';v.className='pill org';}
+  else if(m>50){v.textContent='✅ Plano A mais barato';v.className='pill teal';}
+  else{v.textContent='🤝 Empate em 50 min: '+money(A);v.className='pill warn';}
+  plot($('#cvPlans'),{x0:0,x1:120,y0:0,y1:130,step:20,xname:'minutos',yname:'custo (R$)',
+    curves:[{f:x=>30+0.5*x,color:COL.lin,w:3},{f:x=>10+0.9*x,color:COL.quad,w:3}],
+    vlines:[{x:m,color:'rgba(53,104,201,.5)'},{x:50,color:'rgba(28,43,74,.25)'}],
+    points:[{x:m,y:A,color:COL.lin,label:'',r:6},{x:m,y:B,color:COL.quad,label:'',r:6},
+            {x:50,y:55,color:COL.ink,label:'encontro (50, R$55)',dy:-12,r:5}]});
+}
+$('#pm').addEventListener('input',upPlans);
+
+/* ================= LAB 2 · PARÁBOLA ================= */
+function termQuad(a,b,c){
+  const pa=Math.abs(a)===1?(a===1?'x²':'−x²'):fmtBR(a)+'x²';
+  const pb=Math.abs(b)===1?'x':fmtBR(Math.abs(b))+'x';
+  return `f(x) = <span class="k2-a">${pa}</span> ${b>=0?'+':'−'} <span class="k2-b">${pb}</span> ${c>=0?'+':'−'} <span class="k2-c">${fmtBR(Math.abs(c))}</span>`;}
+function up2(){
+  const a=+$('#l2a').value,b=+$('#l2b').value,c=+$('#l2c').value;
+  $('#l2av').textContent=fmtBR(a);$('#l2bv').textContent=fmtBR(b);$('#l2cv').textContent=fmtBR(c);
+  $('#l2eq').innerHTML=termQuad(a,b,c);
+  const S=$('#l2status'),R=$('#l2roots'),V=$('#l2vert'),B=$('#l2bh'),D=$('#l2delta');
+  const pts=[{x:0,y:c,color:COL.blue,label:`(0, ${fmtBR(c)})`,dy:-12}];
+  const vls=[];
+  if(Math.abs(a)<1e-9){
+    D.textContent='Com a = 0 não existe Δ…';
+    S.textContent='⚠️ a = 0 → isto virou 1º grau! Olhe o gráfico.';S.className='pill warn';
+    R.textContent='—';V.textContent='—';B.textContent='';
+  }else{
+    const d=b*b-4*a*c,xv=-b/(2*a),yv=-d/(4*a);
+    D.innerHTML=`Δ = b² − 4ac = (${fmtBR(b)})² − 4·(${fmtBR(a)})·(${fmtBR(c)}) = <b>${fmtBR(d)}</b>`;
+    V.innerHTML=`Vértice <span class="math">V = (−b/2a, −Δ/4a)</span> = (<b>${fmtBR(xv)}</b>, <b>${fmtBR(yv)}</b>) · ${a>0?'ponto de MÍNIMO ⌣':'ponto de MÁXIMO ⌢'}`;
+    if(d>1e-9){const s=Math.sqrt(d),r1=(-b-s)/(2*a),r2=(-b+s)/(2*a);
+      S.textContent='Δ > 0 → duas raízes reais';S.className='pill ok';
+      R.innerHTML=`Raízes: <span class="math">x₁ = ${fmtBR(Math.min(r1,r2))}</span> e <span class="math">x₂ = ${fmtBR(Math.max(r1,r2))}</span>`;
+      B.innerHTML=`x = (−b ± √Δ)/2a = (${fmtBR(-b)} ± ${fmtBR(s)}) / ${fmtBR(2*a)}`;
+      pts.push({x:r1,y:0,color:COL.red,label:'x₁',dy:20},{x:r2,y:0,color:COL.red,label:'x₂',dy:20});
+    }else if(d>-1e-9){const r1=-b/(2*a);
+      S.textContent='Δ = 0 → uma raiz (dupla): a parábola beija o eixo x';S.className='pill warn';
+      R.innerHTML=`Raiz dupla: <span class="math">x₁ = x₂ = ${fmtBR(r1)}</span>`;
+      B.innerHTML=`x = −b/2a = ${fmtBR(r1)}`;
+      pts.push({x:r1,y:0,color:COL.red,label:'raiz dupla',dy:22});
+    }else{
+      S.textContent='Δ < 0 → nenhuma raiz real';S.className='pill bad';
+      R.textContent='A parábola flutua sem tocar o eixo x.';
+      B.innerHTML=`√Δ = √(${fmtBR(d)}) não existe nos números reais`;
+    }
+    if(Math.abs(xv)<=8&&Math.abs(yv)<=14)pts.push({x:xv,y:yv,color:COL.sun,ink:true,label:'V',dy:a>0?18:-12});
+    vls.push({x:xv});
+  }
+  plot($('#cv2'),{x0:-8,x1:8,y0:-14,y1:14,step:1,
+    curves:[{f:x=>a*x*x+b*x+c,color:COL.quad,w:3.5}],vlines:vls,points:pts});
+}
+['#l2a','#l2b','#l2c'].forEach(id=>$(id).addEventListener('input',up2));
+$$('#lab2 .presets button').forEach(b=>b.addEventListener('click',()=>{
+  $('#l2a').value=b.dataset.a;$('#l2b').value=b.dataset.b;$('#l2c').value=b.dataset.c;up2();}));
+
+/* ================= PROJÉTIL ================= */
+let prAnim=null, prT=0;
+const prCalc=()=>{const v=+$('#pV').value;return{v,T:v/5,H:v*v/20,tv:v/10};};
+function prDraw(t){
+  prT=Math.min(t,prCalc().T);
+  const{v,T,H}=prCalc();
+  plot($('#cvP'),{x0:-0.4,x1:T+0.5,y0:-H*0.18,y1:H*1.2,step:0.5,xname:'tempo t (s)',yname:'altura h (m)',
+    curves:[{f:x=>v*x-5*x*x,color:COL.quad,w:3.5}],
+    trail:prT>0?{f:x=>v*x-5*x*x,to:prT,step:Math.max(0.2,T/14),color:'rgba(217,83,30,.45)'}:null,
+    points:[{x:prT,y:Math.max(0,v*prT-5*prT*prT),color:COL.ink,r:8,label:''}]});
+}
+function prReadouts(){
+  const{v,T,H,tv}=prCalc();
+  $('#pTv').textContent='Tempo total: '+fmtBR(T)+' s';
+  $('#pHv').textContent='Altura máx.: '+fmtBR(H)+' m';
+  $('#pAp').textContent='Ápice em t = '+fmtBR(tv)+' s';
+  $('#pNow').textContent='agora: t = '+fmtBR(prT)+' s · h = '+fmtBR(Math.max(0,v*prT-5*prT*prT))+' m';
+}
+function prStop(){$('#pPlay').textContent='▶ Lançar a bola';if(prAnim){cancelAnimationFrame(prAnim);prAnim=null;}}
+function prUpdate(){prStop();prT=0;$('#pVv').textContent=$('#pV').value;prDraw(0);prReadouts();}
+$('#pV').addEventListener('input',prUpdate);
+$('#pPlay').addEventListener('click',()=>{
+  if(prAnim){prStop();return;}
+  const{T}=prCalc(),t0=performance.now(),btn=$('#pPlay');btn.textContent='⏸ Pausar';
+  const step=n=>{let t=(n-t0)/1000;
+    if(t>=T){prDraw(T);prReadouts();prAnim=null;btn.textContent='↻ Repetir lançamento';return;}
+    prDraw(t);prReadouts();prAnim=requestAnimationFrame(step);};
+  prAnim=requestAnimationFrame(step);
+});
+
+/* ================= LUCRO ================= */
+function upProfit(){
+  const x=+$('#lx').value,L=-x*x+60*x-500;
+  $('#lxv').textContent=fmtBR(x);
+  $('#lNow').innerHTML=L>=0?'Lucro: <b>'+money(L)+'</b>':'Prejuízo: <b style="color:var(--red)">'+money(L)+'</b>';
+  plot($('#cvL'),{x0:0,x1:60,y0:-700,y1:500,step:10,xname:'preço x (R$)',yname:'lucro (R$)',
+    curves:[{f:t=>-t*t+60*t-500,color:COL.quad,w:3.5}],
+    points:[{x:30,y:400,color:COL.sun,ink:true,label:'máximo (30, 400)',dy:-12},
+            {x:10,y:0,color:COL.red,label:'R$10',dy:18,r:4.5},{x:50,y:0,color:COL.red,label:'R$50',dy:18,r:4.5},
+            {x:x,y:L,color:COL.blue,label:'você está aqui',dy:L>60?-14:20,r:6}]});
+}
+$('#lx').addEventListener('input',upProfit);
+
+/* ================= COMPARAÇÃO ================= */
+function drawCompare(){
+  plot($('#cvC'),{x0:-4,x1:4,y0:-3,y1:6,step:1,xname:'x',yname:'y',
+    curves:[{f:x=>x+1,color:COL.lin,w:3},{f:x=>x*x-1,color:COL.quad,w:3}],
+    points:[{x:2,y:3,color:COL.ink,label:'(2, 3)',dx:26,dy:-4,r:6},{x:-1,y:0,color:COL.ink,label:'(−1, 0)',dx:-2,dy:-14,r:6}]});
+}
+
+/* ================= QUIZ ================= */
+const QUIZ=[
+ {q:'Se f(x) = 2x + 3, quanto vale f(4)?',o:['7','11','8','24'],a:1,e:'f(4) = 2·4 + 3 = 8 + 3 = 11. Calcular f(a) é só substituir o x pelo número.'},
+ {q:'A raiz da função f(x) = 3x − 9 é:',o:['−3','3','9','1/3'],a:1,e:'3x − 9 = 0 ⟹ x = 9/3 = 3. A raiz é onde o gráfico cruza o eixo x.'},
+ {q:'A função f(x) = −2x + 5 é:',o:['Crescente, pois b > 0','Decrescente, pois a < 0','Crescente, pois a é negativo','Constante, pois b ≠ 0'],a:1,e:'Quem manda no crescimento é o a: a = −2 < 0 ⟹ a reta desce ⟹ função decrescente.'},
+ {q:'Para f(x) = x² − 5x + 6, o discriminante e as raízes são:',o:['Δ = 1; raízes 2 e 3','Δ = 4; raízes 2 e 3','Δ = 25; raízes 5 e 6','Δ < 0; não há raízes'],a:0,e:'Δ = (−5)² − 4·1·6 = 25 − 24 = 1 ⟹ x = (5 ± √1)/2 = (5 ± 1)/2 ⟹ x = 2 ou x = 3.'},
+ {q:'A parábola de f(x) = −3x² + x − 2 tem concavidade:',o:['Para cima, pois a > 0','Para baixo, pois a < 0','Para a direita, pois b > 0','Depende do valor de c'],a:1,e:'a = −3 < 0 ⟹ concavidade para baixo (carinha triste ☹). Só o sinal de a decide isso.'},
+ {q:'O vértice de f(x) = x² − 4x + 3 é:',o:['(2, −1)','(−2, 15)','(4, 3)','(1, 0)'],a:0,e:'xv = −b/2a = 4/2 = 2; f(2) = 4 − 8 + 3 = −1. Vértice (2, −1), ponto de mínimo (a > 0).'},
+ {q:'Uma bola segue h(t) = −5t² + 20t. A altura máxima atingida é:',o:['5 m','10 m','20 m','40 m'],a:2,e:'tv = −b/2a = 20/10 = 2 s; h(2) = −5·4 + 20·2 = −20 + 40 = 20 m.'},
+ {q:'Corrida de táxi com bandeirada fixa + valor por km é modelada por uma função de:',o:['2º grau','1º grau','Constante','Exponencial'],a:1,e:'Custo = fixo + (preço por km)·km ⟹ f(x) = ax + b: reta, 1º grau.'},
+ {q:'Se Δ < 0 em uma função do 2º grau, o gráfico:',o:['Corta o eixo x duas vezes','Toca o eixo x uma vez','Não corta o eixo x','Vira uma reta'],a:2,e:'Δ < 0 ⟹ nenhuma raiz real ⟹ a parábola fica inteira acima (a>0) ou abaixo (a<0) do eixo x.'}
+];
+let qScore=0,qDone=0;
+function updScore(){$('#qScore').textContent=`Acertos: ${qScore} / ${QUIZ.length}`;$('#qFill').style.width=(qDone/QUIZ.length*100)+'%';}
+function finalQuiz(){
+  const f=$('#quizFinal');f.style.display='block';
+  const p=qScore/QUIZ.length;
+  $('#qFinalTitle').textContent= p===1?'🏆 Gabarito completo!': p>=0.7?'🎉 Mandou muito bem!': p>=0.4?'👍 Está no caminho!':'📚 Hora de revisar!';
+  $('#qFinalMsg').textContent= p===1?'Todas certas — você domina retas e parábolas. Agora desafie-se: crie seu próprio problema e resolva!':
+    p>=0.7?'Ótimo resultado. Releia as explicações das que errou e repita o quiz até o gabarito.':
+    p>=0.4?'Bom começo! Volte aos laboratórios e observe de novo o papel de cada coeficiente antes de tentar outra vez.':
+    'Sem drama: reveja as seções 02 e 03 com calma, mexa nos sliders e clique em “Reiniciar”. Aprender é repetir.';
+}
+function buildQuiz(){
+  const box=$('#quizBox');box.innerHTML='';qScore=0;qDone=0;updScore();$('#quizFinal').style.display='none';
+  QUIZ.forEach((q,qi)=>{
+    const card=document.createElement('div');card.className='qcard reveal in';
+    card.innerHTML=`<div class="qn">PERGUNTA ${qi+1} / ${QUIZ.length}</div><h4>${q.q}</h4>
+      <div class="opts">${q.o.map((o,i)=>`<button class="opt" data-i="${i}"><span class="lt">${'ABCD'[i]}</span>${o}</button>`).join('')}</div>
+      <div class="qexp"><b>Explicação:</b> ${q.e}</div>`;
+    card.querySelectorAll('.opt').forEach(btn=>btn.addEventListener('click',()=>{
+      const opts=card.querySelectorAll('.opt');opts.forEach(o=>o.disabled=true);
+      const i=+btn.dataset.i;
+      if(i===q.a){btn.classList.add('correct');qScore++;}
+      else{btn.classList.add('wrong');opts[q.a].classList.add('correct');}
+      card.querySelector('.qexp').classList.add('show');
+      qDone++;updScore();
+      if(qDone===QUIZ.length)finalQuiz();
+    }));
+    box.appendChild(card);
+  });
+}
+$('#qReset').addEventListener('click',buildQuiz);
+
+/* ================= REVEAL, NAV ATIVO, FAB, IMPRESSÃO ================= */
+if('IntersectionObserver'in window){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
+  $$('.reveal').forEach(el=>io.observe(el));
+  const navMap={};$$('.links a').forEach(a=>navMap[a.getAttribute('href').slice(1)]=a);
+  const secIO=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){$$('.links a').forEach(a=>a.classList.remove('active'));
+      const a=navMap[e.target.id];if(a)a.classList.add('active');}
+  }),{rootMargin:'-45% 0px -50% 0px'});
+  ['ideia','g1','g2','duelo','quiz','exercicios','resumo'].forEach(id=>{const s=document.getElementById(id);if(s)secIO.observe(s);});
+}else{$$('.reveal').forEach(el=>el.classList.add('in'));}
+
+const fab=$('#fab');
+addEventListener('scroll',()=>{const h=document.documentElement;
+  $('#progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+  fab.classList.toggle('show',h.scrollTop>600);},{passive:true});
+fab.addEventListener('click',()=>scrollTo({top:0,behavior:reduced?'auto':'smooth'}));
+
+addEventListener('beforeprint',()=>$$('details.ex').forEach(d=>d.open=true));
+
+let rzT=null;
+function redrawAll(){up1();upTaxi();upPlans();up2();upProfit();drawCompare();
+  if(!prAnim){prDraw(prT);prReadouts();}
+  if(reduced)heroDraw(0);}
+addEventListener('resize',()=>{clearTimeout(rzT);rzT=setTimeout(redrawAll,150);});
+
+/* inicialização */
+up1();upTaxi();upPlans();up2();prUpdate();upProfit();drawCompare();buildQuiz();
+</script>
+</body>
+</html>
